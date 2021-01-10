@@ -1,18 +1,19 @@
 'use strict'
 
 
-// /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
+ /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 const Database = use('Database')
+
 Route.get('/', ()=>{
     return {ok:true}
 });
 
-Route.post('/', ()=>{
-    return {ok:true}
-});
+Route.group(()=>{
+Route.get('/','UserController.all')
+Route.post('/','UserController.save')
+}).prefix('api/user')
 
 
-Route.post('/user','UserController.save');
 
 

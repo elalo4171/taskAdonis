@@ -12,6 +12,7 @@ Route.get('/', ()=>{
 Route.group(()=>{
 Route.get('/','UserController.all')
 Route.post('/','UserController.save')
+Route.get('/:id','UserController.one')
 }).prefix('api/user')
 
 

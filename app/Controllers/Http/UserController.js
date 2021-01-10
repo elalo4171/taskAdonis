@@ -8,19 +8,36 @@ class UserController {
         //Trae los valores del body asi como del query params
         const {email, username, password} = request.all();
         const user =new User();
+        let error;
         user.username= username;
         user.email = email;
         user.password = password
-        await user.save();
+        try{
+            await user.save();
+        }catch(e){
+           error=e; 
+        }
+        if(error){
+            return {ok:false, error:error.detail}
+        }
         return {ok:true, data:{
             user
         }}
     }
-    async all({request,response}){
+    async all(){
         const User = use('App/Models/User')
-        const {email, user, password} = request.all();
         return {ok:true, data:{
             users: await User.all()
+        }}
+    }
+    async one({params,response,}){
+        const {id} = params;
+        const User = use('App/Models/User')
+
+        var  user=await User.findBy('id',`${id}`)
+
+        return {ok:true, data:{
+            user
         }}
     }
 }

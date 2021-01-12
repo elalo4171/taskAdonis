@@ -1,7 +1,19 @@
 'use strict'
 
 class UserController {
-    
+
+    async login({auth,request}){
+
+        const User = use('App/Models/User')
+        const {username, password} = request.all();
+        let token = await auth.attempt(username, password)
+           let user =await User.findBy('username', username);
+            return {ok:true, data:{
+                user,token
+            }
+        }
+    }
+
     async save({request,response}){
         const User = use('App/Models/User')
         //request.all
@@ -11,11 +23,11 @@ class UserController {
         let error;
         user.username= username;
         user.email = email;
-        user.password = password
+        user.password = password;
         try{
             await user.save();
         }catch(e){
-           error=e; 
+           error=e;
         }
         if(error){
             return {ok:false, error:error.detail}

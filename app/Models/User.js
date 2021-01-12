@@ -43,6 +43,9 @@ class User extends Model {
       .pivotTable('user_projects')
       .withTimestamps()
   }
+  static get hidden () {
+    return ['password','created_at']
+  }
   
 }
 

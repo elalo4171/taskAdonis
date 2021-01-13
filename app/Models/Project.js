@@ -14,6 +14,9 @@ class Project extends Model {
           .pivotTable('user_projects')
           .withTimestamps()
       }
+    task () {
+        return this.belongsTo('App/Models/Task')
+    }
 }
 
 module.exports = Project

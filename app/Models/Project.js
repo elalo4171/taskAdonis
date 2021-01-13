@@ -17,6 +17,9 @@ class Project extends Model {
     task () {
         return this.belongsTo('App/Models/Task')
     }
+    message () {
+        return this.belongsTo('App/Models/Message')
+    }
 }
 
 module.exports = Project

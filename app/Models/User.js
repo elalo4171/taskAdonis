@@ -46,6 +46,9 @@ class User extends Model {
   static get hidden () {
     return ['password','created_at']
   }
+  message () {
+    return this.belongsTo('App/Models/Message')
+}
   
 }
 

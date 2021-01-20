@@ -36,7 +36,14 @@ class UserController {
             user
         }}
     }
-    async all(){
+    async all({auth}){
+        try {
+            await auth.check()
+          } catch (error) {
+            return {ok:false, error:{
+                msj:'Token no proveido o invalido'
+            }}
+          }
         const User = use('App/Models/User')
         return {ok:true, data:{
             users: await User.all()

@@ -9,7 +9,11 @@ class UserController {
         let token = await auth.attempt(username, password)
            let user =await User.findBy('username', username);
             return {ok:true, data:{
-                user,token
+                user:{
+                    username:user.username,
+                    email:user.email
+                }
+                ,token
             }
         }
     }

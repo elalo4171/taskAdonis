@@ -11,7 +11,8 @@ class UserController {
             return {ok:true, data:{
                 user:{
                     username:user.username,
-                    email:user.email
+                    email:user.email,
+                    id:user.id
                 }
                 ,token
             }

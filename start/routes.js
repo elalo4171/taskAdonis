@@ -16,6 +16,10 @@ Route.post('/login','UserController.login')
 Route.get('/:id','UserController.one')
 }).prefix('api/user')
 
+Route.group(()=>{
+    Route.post('/','ProjectController.create')
+    }).prefix('api/project')
+
 
 
 

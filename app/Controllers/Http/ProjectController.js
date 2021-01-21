@@ -15,7 +15,7 @@ class ProjectController {
         try{
             await project.save();
         }catch(e){
-           error=e;
+            error=e;
         }
         if(error){
             return {ok:false, error:error.detail}

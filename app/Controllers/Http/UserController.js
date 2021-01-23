@@ -62,10 +62,14 @@ class UserController {
         const User = use('App/Models/User')
 
         var  user=await User.findBy('id',`${id}`)
+        if(user){
+            return {ok:true, data:{
+                user
+            }}
 
-        return {ok:true, data:{
-            user
-        }}
+        }else {
+            return {ok:true, data: null}
+        }
     }
 }
 

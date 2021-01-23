@@ -7,9 +7,8 @@ class TaskSchema extends Schema {
   up () {
     this.create('tasks', (table) => {
       table.increments()
-      table.integer('status_task_id').unsigned().references('id').inTable('status_tasks')
       table.integer('project_id').unsigned().references('id').inTable('projects')
-
+      table.boolean('done').defaultTo(false).notNullable()
       table.string('title', 50).notNullable()
       table.string('description', 50).notNullable()
       table.string('status_task', 50).notNullable()

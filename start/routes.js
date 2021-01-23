@@ -18,6 +18,9 @@ Route.get('/:id','UserController.one')
 
 Route.group(()=>{
     Route.post('/','ProjectController.create')
+    Route.get('/','ProjectController.getProjects')
+    Route.post('/add','ProjectController.addUser')
+    Route.get('/:project','ProjectController.getOneProject')
     }).prefix('api/project')
 
 

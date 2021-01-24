@@ -23,6 +23,10 @@ Route.group(()=>{
     Route.get('/:project','ProjectController.getOneProject')
     }).prefix('api/project')
 
+    Route.group(()=>{
+        Route.post('/','TaskController.create')
+        }).prefix('api/task')
+
 
 
 

@@ -55,9 +55,11 @@ class ProjectController {
             }
         }
         const project_id  = params.project;
+        const Task = use('App/Models/Task')
+        const task = await Task.query().where('project_id', '=', project_id).fetch()
         const Project = use('App/Models/Project')
         let project =await Project.findBy('id', project_id);
-        return { ok: true, project }
+        return { ok: true, project, task }
     }
 
     async addUser({ auth, request }) {

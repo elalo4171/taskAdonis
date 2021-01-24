@@ -11,7 +11,6 @@ class TaskSchema extends Schema {
       table.boolean('done').defaultTo(false).notNullable()
       table.string('title', 50).notNullable()
       table.string('description', 50).notNullable()
-      table.string('status_task', 50).notNullable()
 
       table.timestamps()
     })

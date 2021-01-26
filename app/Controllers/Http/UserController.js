@@ -2,19 +2,20 @@
 
 class UserController {
 
-    async login({auth,request}){
+    async login({ auth, request }) {
 
         const User = use('App/Models/User')
         const Project = use('App/Models/Project')
-        const {username, password} = request.all();
+        const { username, password } = request.all();
         let token = await auth.attempt(username, password);
-        let user =await User.findBy('username', username);
-        const projects = await Project.query().where('user_id','=',user.id).fetch()
-            return {ok:true, data:{
-                user:{
-                    username:user.username,
-                    email:user.email,
-                    id:user.id
+        let user = await User.findBy('username', username);
+        const projects = await Project.query().where('user_id', '=', user.id).fetch()
+        return {
+            ok: true, data: {
+                user: {
+                    username: user.username,
+                    email: user.email,
+                    id: user.id
                 },
                 projects,
                 token
@@ -22,53 +23,73 @@ class UserController {
         }
     }
 
-    async save({request,response}){
+    async save({ request, response }) {
         const User = use('App/Models/User')
         //request.all
         //Trae los valores del body asi como del query params
-        const {email, username, password} = request.all();
-        const user =new User();
+        const { email, username, password } = request.all();
+        const user = new User();
         let error;
-        user.username= username;
+        user.username = username;
         user.email = email;
         user.password = password;
-        try{
+        try {
             await user.save();
-        }catch(e){
-           error=e;
+        } catch (e) {
+            error = e;
         }
-        if(error){
-            return {ok:false, error:error.detail}
+        if (error) {
+            response.status(401);
+            return { ok: false, error: error.detail }
         }
-        return {ok:true, data:{
-            user
-        }}
+        return {
+            ok: true, data: {
+                user
+            }
+        }
     }
-    async all({auth}){
+    async all({ auth }) {
         try {
             await auth.check()
-          } catch (error) {
-            return {ok:false, error:{
-                msj:'Token no proveido o invalido'
-            }}
-          }
+        } catch (error) {
+            response.status(401);
+            return {
+                ok: false, error: {
+                    msj: 'Token no proveido o invalido'
+                }
+            }
+        }
         const User = use('App/Models/User')
-        return {ok:true, data:{
-            users: await User.all()
-        }}
+        return {
+            ok: true, data: {
+                users: await User.all()
+            }
+        }
     }
-    async one({params,response,}){
-        const {id} = params;
+    async one({ auth, params, response, }) {
+        try {
+            await auth.check()
+        } catch (error) {
+            response.status(401);
+
+            return {
+                ok: false, error: {
+                    msj: 'Token no proveido o invalido'
+                }
+            }
+        }
+        const { id } = params;
         const User = use('App/Models/User')
 
-        var  user=await User.findBy('id',`${id}`)
-        if(user){
-            return {ok:true, data:{
-                user
-            }}
-
-        }else {
-            return {ok:true, data: null}
+        var user = await User.findBy('id', `${id}`)
+        if (user) {
+            return {
+                ok: true, data: {
+                    user
+                }
+            }
+        } else {
+            return { ok: true, data: null }
         }
     }
 }

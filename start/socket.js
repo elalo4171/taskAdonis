@@ -12,12 +12,9 @@
 | For middleware, do check `wsKernel.js` file.
 |
 */
+const Server = use('Server')
+const io = use('socket.io')(Server.getInstance())
 
-const Ws = use('Ws')
-Ws 
-  .channel('chat', 'ChatController')
-  const io = require('socket.io')();
-io.listen(3000);
 io.on('connection', function (socket) {
   console.log(socket.id)
 })

@@ -14,12 +14,9 @@ class UserController {
         let projectsDatabase = await UserProject.query().where('user_id', '=', user.id).fetch()
         console.log(projectsDatabase)
         await Promise.all(await projectsDatabase.rows.map(async (row) =>{
-            
             let projectdb = await Project.findBy('id', row.project_id);
-            console.log(projectdb)
             projects.push(projectdb);
         }))
-        console.log("Despues")
         return {
             ok: true, data: {
                 user: {

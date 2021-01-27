@@ -16,7 +16,13 @@
 const Ws = use('Ws')
 Ws 
   .channel('chat', 'ChatController')
+  const io = require('socket.io')();
+io.listen(3000);
+io.on('connection', function (socket) {
+  console.log(socket.id)
+})
 
 // Ws.channel('chat', ({ socket }) => {
 //   console.log('user joined with %s socket id', socket.id)
 // })
+ 

@@ -1,5 +1,3 @@
-
-
 HOST=127.0.0.1
 PORT=3333
 NODE_ENV=development
@@ -7,10 +5,10 @@ APP_URL=http://${HOST}:${PORT}
 CACHE_VIEWS=false
 APP_KEY=MAgw3MH9gsxNADRwgkudVu98uejHk1Me
 DB_CONNECTION=pg
-DB_HOST=ec2-52-206-44-27.compute-1.amazonaws.com
+DB_HOST=localhost
 DB_PORT=5432
-DB_USER=ircmvfxzxhldjm
-DB_PASSWORD=98b7eccd7fb6ea434aeb001431ed522240d351b0c66d76258adb1e4a5c613d4b
-DB_DATABASE=dbja13vq2cis67
+DB_USER=postgres
+DB_PASSWORD=elalo417
+DB_DATABASE=taskapi
 SESSION_DRIVER=cookie
 HASH_DRIVER=bcrypt

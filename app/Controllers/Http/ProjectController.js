@@ -44,6 +44,11 @@ class ProjectController {
         }
     }
     async getProjects({ auth, request }) {
+        const Database = use('Database')
+        var projects =await Database.select('*').from('projects')
+        return { ok: true, projects }
+    }
+    async getAllProjects({ auth, request }) {
         const user = await auth.getUser();
         const Project = use('App/Models/Project')
         const UserProject = use('App/Models/UserProject')

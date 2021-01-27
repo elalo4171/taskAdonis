@@ -4,12 +4,14 @@ class UserController {
 
     async login({ auth, request }) {
 
+        const UserProject = use('App/Models/UserProject')
         const User = use('App/Models/User')
         const Project = use('App/Models/Project')
         const { username, password } = request.all();
         let token = await auth.attempt(username, password);
         let user = await User.findBy('username', username);
-        const projects = await Project.query().where('user_id', '=', user.id).fetch()
+        let projectsDatabase = await UserProject.query().where('user_id', '=', user.id).fetch()
+        
         return {
             ok: true, data: {
                 user: {

@@ -10,8 +10,16 @@ class UserController {
         const { username, password } = request.all();
         let token = await auth.attempt(username, password);
         let user = await User.findBy('username', username);
+        let projects =[];
         let projectsDatabase = await UserProject.query().where('user_id', '=', user.id).fetch()
-        
+        console.log(projectsDatabase)
+        await Promise.all(await projectsDatabase.rows.map(async (row) =>{
+            
+            let projectdb = await Project.findBy('id', row.project_id);
+            console.log(projectdb)
+            projects.push(projectdb);
+        }))
+        console.log("Despues")
         return {
             ok: true, data: {
                 user: {
